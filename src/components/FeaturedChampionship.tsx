@@ -1,5 +1,8 @@
 import Reveal from "./Reveal";
 import { series } from "../data";
+import { wa } from "../wa";
+
+const CHAMP_CTA = wa("Olá! Quero garantir minha vaga no Paddock Championship 2026 (GT3). Como faço a inscrição?");
 
 export default function FeaturedChampionship() {
   return (
@@ -53,7 +56,9 @@ export default function FeaturedChampionship() {
               </div>
 
               <a
-                href="#comunidade"
+                href={CHAMP_CTA}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-10 inline-flex items-center gap-2 bg-race-red hover:bg-race-red/90 text-ivory font-display tracking-wide px-8 py-4 text-sm md:text-base transition-colors"
               >
                 GARANTA SUA VAGA

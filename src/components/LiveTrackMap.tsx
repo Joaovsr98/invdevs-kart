@@ -2,33 +2,38 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 /**
- * Mapa vivo de Interlagos — traçado estilizado do Autódromo José Carlos Pace
- * com 10 carros estilo F1 correndo em tempo real (5 equipes, 2 carros cada).
- * O líder P22 (vermelho) anda mais rápido e vai ultrapassando os demais.
+ * Mapa vivo de Interlagos — traçado do Autódromo José Carlos Pace (Senna S,
+ * Curva do Sol, Reta Oposta, Ferradura, Pinheirinho, Bico de Pato, Mergulho,
+ * Junção e Subida dos Boxes) com 10 carros estilo F1 correndo em tempo real
+ * (5 equipes, 2 carros cada). O líder P22 (vermelho) anda mais rápido e vai
+ * ultrapassando os demais.
  *
  * A animação é feita em JS via requestAnimationFrame + getPointAtLength — o
- * SMIL/offset-path não é confiável neste ambiente, então movemos cada carro
- * ao longo do path a cada frame (respeitando prefers-reduced-motion).
+ * SMIL/offset-path não é confiável, então movemos cada carro ao longo do path
+ * a cada frame (rAF pausa sozinho fora da tela e sob prefers-reduced-motion).
  */
 
+// Traçado (centerline) — silhueta aproximada de Interlagos, laço único.
 const CIRCUIT =
-  "M 273 48 C 240 44 205 50 185 64 C 168 76 172 88 176 96 C 158 108 146 110 132 120 " +
-  "C 100 150 70 240 44 288 C 34 306 44 330 62 328 C 92 326 116 348 132 344 " +
-  "C 158 340 180 324 176 312 C 172 300 156 288 150 280 C 168 284 186 290 194 296 " +
-  "C 214 306 244 300 242 320 C 240 300 232 288 229 280 C 244 272 258 258 264 264 " +
-  "C 272 278 268 300 255 312 C 280 300 300 270 308 240 C 318 200 320 150 317 120 " +
-  "C 314 92 300 60 273 48 Z";
+  "M 150 60 C 132 60 122 64 118 72 C 112 82 106 88 108 96 C 110 108 118 114 120 120 " +
+  "C 116 132 108 138 100 150 C 84 176 66 190 62 210 C 58 230 60 244 70 250 " +
+  "C 84 262 96 268 110 268 C 130 268 150 264 165 262 C 185 259 200 262 215 268 " +
+  "C 236 276 252 266 255 250 C 257 236 250 230 240 225 C 250 216 260 210 270 210 " +
+  "C 288 210 300 214 305 220 C 314 225 318 208 315 198 C 312 190 300 186 290 188 " +
+  "C 296 178 300 172 300 165 C 300 156 286 160 272 168 C 288 158 296 144 300 130 " +
+  "C 308 112 320 102 330 95 C 342 86 340 70 300 62 C 270 56 250 52 230 52 " +
+  "C 200 50 170 54 150 60 Z";
 
-const TEAMS = ["#E10600", "#0057FF", "#14D19A", "#FF8A00", "#D7DBE0"];
-// 10 carros: 2 por equipe. id 0 = líder (ultrapassador).
+const TEAMS = ["#E10600", "#0057FF", "#FF8A00"];
+// 6 carros: 2 por equipe. id 0 = líder (ultrapassador).
 const CARS = TEAMS.flatMap((color, t) => [0, 1].map((k) => ({ color, id: t * 2 + k })));
 
 function Car({ color, glow }: { color: string; glow?: boolean }) {
   return (
     <g filter={glow ? "url(#carGlow)" : undefined}>
-      <rect x="-7" y="-3" width="14" height="6" rx="2" fill={color} />
-      <rect x="-7" y="-3" width="3.5" height="6" rx="1" fill="rgba(0,0,0,0.35)" />
-      <rect x="3.5" y="-1.6" width="4" height="3.2" rx="1" fill="rgba(255,255,255,0.6)" />
+      <rect x="-6" y="-2.6" width="12" height="5.2" rx="2" fill={color} />
+      <rect x="-6" y="-2.6" width="3" height="5.2" rx="1" fill="rgba(0,0,0,0.35)" />
+      <rect x="3" y="-1.4" width="3.4" height="2.8" rx="1" fill="rgba(255,255,255,0.6)" />
     </g>
   );
 }
@@ -43,16 +48,15 @@ export default function LiveTrackMap({
   const carRefs = useRef<(SVGGElement | null)[]>([]);
 
   useEffect(() => {
-    // path de medição fora do DOM — getPointAtLength funciona mesmo sem render
     const measure = document.createElementNS("http://www.w3.org/2000/svg", "path");
     measure.setAttribute("d", CIRCUIT);
     const len = measure.getTotalLength();
 
-    // progresso inicial espalhado pela pista + velocidade por carro
     const prog = CARS.map((c) => c.id / CARS.length);
+    // voltas por segundo — ritmo calmo. Líder mais rápido (ultrapassa).
     const speed = CARS.map((c) =>
-      c.id === 0 ? 1 / 6 : (1 / 8.5) * (1 + ((c.id % 3) - 1) * 0.04)
-    ); // voltas por segundo (líder mais rápido)
+      c.id === 0 ? 1 / 19 : (1 / 26) * (1 + ((c.id % 3) - 1) * 0.03)
+    );
 
     const place = (i: number) => {
       const l = prog[i] * len;
@@ -63,10 +67,9 @@ export default function LiveTrackMap({
       if (g) g.setAttribute("transform", `translate(${p.x} ${p.y}) rotate(${ang})`);
     };
 
-    // posição inicial de todos
     CARS.forEach((_, i) => place(i));
 
-    if (reducedMotion) return; // estático
+    if (reducedMotion) return;
 
     let raf = 0;
     let last = performance.now();
@@ -105,7 +108,7 @@ export default function LiveTrackMap({
         <span className="text-race-red">LÍDER · P22</span>
       </div>
 
-      <svg viewBox="0 0 360 380" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+      <svg viewBox="0 0 390 320" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
         <defs>
           <filter id="carGlow" x="-60%" y="-60%" width="220%" height="220%">
             <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#E10600" floodOpacity="0.9" />
@@ -116,32 +119,32 @@ export default function LiveTrackMap({
           </linearGradient>
         </defs>
 
-        <ellipse cx="185" cy="210" rx="170" ry="180" fill="rgba(0,87,255,0.05)" />
+        <ellipse cx="195" cy="165" rx="180" ry="150" fill="rgba(0,87,255,0.05)" />
 
         {/* leito da pista */}
-        <path d={CIRCUIT} fill="none" stroke="#0e1116" strokeWidth="16" strokeLinejoin="round" />
-        <path d={CIRCUIT} fill="none" stroke="url(#asphaltStroke)" strokeWidth="12" strokeLinejoin="round" />
-        <path d={CIRCUIT} fill="none" stroke="rgba(242,240,233,0.25)" strokeWidth="1.2" strokeDasharray="3 7" />
+        <path d={CIRCUIT} fill="none" stroke="#0e1116" strokeWidth="14" strokeLinejoin="round" strokeLinecap="round" />
+        <path d={CIRCUIT} fill="none" stroke="url(#asphaltStroke)" strokeWidth="10.5" strokeLinejoin="round" strokeLinecap="round" />
+        <path d={CIRCUIT} fill="none" stroke="rgba(242,240,233,0.25)" strokeWidth="1.1" strokeDasharray="3 7" />
 
         {/* largada/chegada */}
-        <g transform="translate(273 48)">
-          <rect x="-2" y="-9" width="4" height="18" fill="#F2F0E9" />
-          <rect x="-2" y="-9" width="2" height="3" fill="#0e1116" />
-          <rect x="0" y="-6" width="2" height="3" fill="#0e1116" />
-          <rect x="-2" y="-3" width="2" height="3" fill="#0e1116" />
-          <rect x="0" y="0" width="2" height="3" fill="#0e1116" />
-          <rect x="-2" y="3" width="2" height="3" fill="#0e1116" />
-          <rect x="0" y="6" width="2" height="3" fill="#0e1116" />
+        <g transform="translate(150 60) rotate(-8)">
+          <rect x="-2" y="-8" width="4" height="16" fill="#F2F0E9" />
+          <rect x="-2" y="-8" width="2" height="2.7" fill="#0e1116" />
+          <rect x="0" y="-5.3" width="2" height="2.7" fill="#0e1116" />
+          <rect x="-2" y="-2.6" width="2" height="2.7" fill="#0e1116" />
+          <rect x="0" y="0.1" width="2" height="2.7" fill="#0e1116" />
+          <rect x="-2" y="2.8" width="2" height="2.7" fill="#0e1116" />
+          <rect x="0" y="5.5" width="2" height="2.7" fill="#0e1116" />
         </g>
 
         {/* setores vermelho/azul */}
-        <circle cx="44" cy="288" r="3" fill="#E10600" />
-        <circle cx="308" cy="240" r="3" fill="#0057FF" />
+        <circle cx="62" cy="210" r="2.8" fill="#E10600" />
+        <circle cx="305" cy="220" r="2.8" fill="#0057FF" />
 
         {/* rótulo do circuito */}
         <text
-          x="185"
-          y="205"
+          x="195"
+          y="175"
           textAnchor="middle"
           className="font-display"
           fontSize="15"
@@ -153,7 +156,12 @@ export default function LiveTrackMap({
 
         {/* carros (posicionados por JS) */}
         {CARS.map(({ color, id }) => (
-          <g key={id} ref={(el) => { carRefs.current[id] = el; }}>
+          <g
+            key={id}
+            ref={(el) => {
+              carRefs.current[id] = el;
+            }}
+          >
             <Car color={color} glow={id === 0} />
           </g>
         ))}

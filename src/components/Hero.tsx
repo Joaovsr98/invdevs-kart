@@ -3,8 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { demoTelemetry, calendar } from "../data";
 import LiveTrackMap from "./LiveTrackMap";
 import { CountdownPanel, HudEta } from "./Countdown";
+import { wa } from "../wa";
 
 const BOOT_SESSION_KEY = "paddock22_boot_seen";
+
+// CTA principal → WhatsApp com mensagem pronta.
+const WHATSAPP_CTA = wa(
+  "Olá! Vim pelo site da Paddock 22 e quero competir na Temporada 2026. Como faço para garantir minha vaga?"
+);
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -208,7 +214,9 @@ export default function Hero() {
               className="mt-9 flex flex-wrap items-center gap-4"
             >
               <a
-                href="#campeonato"
+                href={WHATSAPP_CTA}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-3 bg-race-red text-ivory font-display tracking-wide px-9 md:px-11 py-5 md:py-6 text-base md:text-lg overflow-hidden transition-transform duration-200 hover:-translate-y-0.5 shadow-[0_18px_40px_-14px_rgba(225,6,0,0.7)]"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />

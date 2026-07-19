@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
+import { wa } from "../wa";
+
+const VAGA_CTA = wa("Olá! Quero garantir minha vaga na Paddock 22. Pode me passar os próximos passos?");
 
 const links = [
   { href: "#campeonato", label: "Campeonato" },
@@ -78,7 +81,9 @@ export default function Nav() {
         </ul>
 
         <a
-          href="#campeonato"
+          href={VAGA_CTA}
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative hidden md:inline-flex items-center gap-2 bg-race-red text-ivory font-display text-sm tracking-wide px-5 py-2.5 overflow-hidden transition-transform duration-200 hover:-translate-y-0.5"
         >
           <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
@@ -109,7 +114,9 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="#campeonato"
+            href={VAGA_CTA}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="text-center bg-race-red text-ivory font-display tracking-wide px-5 py-3"
           >

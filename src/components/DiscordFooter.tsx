@@ -1,5 +1,8 @@
 import Reveal from "./Reveal";
 import Logo from "./Logo";
+import { wa } from "../wa";
+
+const COMUNIDADE_CTA = wa("Olá! Quero entrar na comunidade da Paddock 22 e participar dos campeonatos. Como faço?");
 
 export default function DiscordFooter() {
   return (
@@ -21,10 +24,12 @@ export default function DiscordFooter() {
               acontecem. Antes de correr, é aqui que você entra.
             </p>
             <a
-              href="#"
-              className="mt-9 inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4a54d6] text-ivory font-display tracking-wide px-8 py-4 text-sm md:text-base transition-colors"
+              href={COMUNIDADE_CTA}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-9 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1fbb59] text-[#062b16] font-display tracking-wide px-8 py-4 text-sm md:text-base transition-colors"
             >
-              ENTRAR NO DISCORD AGORA
+              FALAR NO WHATSAPP
             </a>
           </Reveal>
         </div>
