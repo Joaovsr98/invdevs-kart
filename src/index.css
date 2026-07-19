@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Oswald", sans-serif;
+  --font-body: "Raleway", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-asphalt: #0B0D10;
+  --color-carbon: #15181C;
+  --color-carbon-2: #1D2126;
+  --color-race-red: #E10600;
+  --color-race-red-dim: #8f0500;
+  --color-electric-blue: #0057FF;
+  --color-electric-blue-dim: #0039a6;
+  --color-ivory: #F2F0E9;
+  --color-steel: #8B94A3;
+  --color-steel-line: #2A2F36;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-asphalt);
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background-color: var(--color-race-red);
+  color: var(--color-ivory);
+}
+
+/* diagonal livery-panel divider */
+.cut-panel-b {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 48px), 0 100%);
+}
+.cut-panel-t {
+  clip-path: polygon(0 48px, 100% 0, 100% 100%, 0 100%);
+}
+
+@media (max-width: 768px) {
+  .cut-panel-b { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), 0 100%); }
+  .cut-panel-t { clip-path: polygon(0 24px, 100% 0, 100% 100%, 0 100%); }
+}
+
+.checker-bg {
+  background-image:
+    linear-gradient(45deg, var(--color-carbon-2) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-carbon-2) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-carbon-2) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-carbon-2) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* carbon fiber texture */
+.carbon-fiber {
+  background-color: var(--color-carbon);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px);
+}
+
+/* glass panel */
+.glass-panel {
+  background: rgba(21, 24, 28, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+@keyframes led-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px currentColor; }
+  50% { opacity: 0.55; box-shadow: 0 0 2px currentColor; }
+}
+.led-pulse {
+  animation: led-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-30%); }
+  100% { transform: translateX(30%); }
+}
+
+/* padrão de faixas diagonais vermelho + azul (manual de marca) */
+.speed-stripes {
+  background-image: repeating-linear-gradient(
+    115deg,
+    transparent 0 22px,
+    var(--color-race-red) 22px 26px,
+    transparent 26px 40px,
+    var(--color-electric-blue) 40px 44px,
+    transparent 44px 72px
+  );
+}
+
+/* metallic paint sheen — only visible "quando a luz passa" */
+.metal-text {
+  position: relative;
+  background: linear-gradient(
+    100deg,
+    var(--color-race-red) 0%,
+    var(--color-race-red) 38%,
+    #ff6b60 47%,
+    #ffd9d5 50%,
+    #ff6b60 53%,
+    var(--color-race-red) 62%,
+    var(--color-race-red) 100%
+  );
+  background-size: 260% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: paint-sheen 7s ease-in-out infinite;
+}
+@keyframes paint-sheen {
+  0%, 62%, 100% { background-position: 120% 0; }
+  74% { background-position: -20% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .metal-text { animation: none; background-position: 100% 0; }
+}
+
+/* brake disc glow behind the front wheel */
+@keyframes brake-glow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.brake-glow { animation: brake-glow 2.4s ease-in-out infinite; }
+
+/* headlight breathing */
+@keyframes head-breathe {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+.head-breathe { animation: head-breathe 3.5s ease-in-out infinite; }
+
+/* rising tyre smoke */
+@keyframes smoke-drift {
+  0% { transform: translate(0, 12px) scale(0.9); opacity: 0; }
+  35% { opacity: 0.5; }
+  100% { transform: translate(-18px, -26px) scale(1.35); opacity: 0; }
+}
+.smoke-drift { animation: smoke-drift 6s ease-in-out infinite; }
+
+/* rpm shift-light bar fill */
+@keyframes rpm-run {
+  0% { width: 22%; }
+  55% { width: 96%; }
+  60% { width: 40%; }
+  100% { width: 22%; }
+}
+.rpm-run { animation: rpm-run 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
