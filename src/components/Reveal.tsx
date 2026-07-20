@@ -19,9 +19,13 @@ export default function Reveal({
   return (
     <motion.div
       className={`relative ${className}`}
-      initial={{ opacity: 0, y, x, clipPath: "inset(0 0 100% 0)" }}
-      whileInView={{ opacity: 1, y: 0, x: 0, clipPath: "inset(0 0 0% 0)" }}
-      viewport={{ once: true, margin: "-80px" }}
+      // ⚠️ NÃO usar clip-path no estado inicial: `inset(0 0 100% 0)` zera a área
+      // visível do elemento, o IntersectionObserver passa a reportar
+      // isIntersecting=false e o whileInView nunca dispara — o bloco fica
+      // invisível para sempre (bug que sumia com o conteúdo no mobile).
+      initial={{ opacity: 0, y, x }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {accent && (

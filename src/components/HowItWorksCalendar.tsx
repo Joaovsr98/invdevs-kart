@@ -37,18 +37,25 @@ export default function HowItWorksCalendar() {
           <div className="border-t border-steel-line">
             {calendar.map((c, i) => (
               <Reveal key={c.round} delay={i * 0.04}>
-                <div className="grid grid-cols-[auto_1fr_auto_auto] sm:grid-cols-[80px_1fr_auto_180px] items-center gap-4 md:gap-6 border-b border-steel-line py-5 group hover:bg-carbon/50 transition-colors px-2">
-                  <span className="font-mono text-steel text-sm">R{c.round}</span>
-                  <span className="font-display uppercase text-ivory text-base md:text-xl truncate flex items-baseline gap-2">
-                    <span className="font-mono text-[10px] tracking-widest text-electric-blue border border-electric-blue/40 px-1.5 py-0.5 rounded-sm">
-                      {c.country}
+                {/* Mobile: duas linhas (nome inteiro + data/série). A partir de
+                    sm, `contents` dissolve os wrappers e a grade de 4 colunas
+                    volta a valer. */}
+                <div className="flex flex-col gap-1.5 sm:grid sm:grid-cols-[80px_1fr_auto_180px] sm:items-center sm:gap-6 border-b border-steel-line py-4 sm:py-5 px-2 group hover:bg-carbon/50 transition-colors">
+                  <div className="flex items-baseline gap-3 min-w-0 sm:contents">
+                    <span className="font-mono text-steel text-sm shrink-0">R{c.round}</span>
+                    <span className="font-display uppercase text-ivory text-base md:text-xl flex items-baseline gap-2 min-w-0">
+                      <span className="font-mono text-[10px] tracking-widest text-electric-blue border border-electric-blue/40 px-1.5 py-0.5 rounded-sm shrink-0">
+                        {c.country}
+                      </span>
+                      <span className="truncate">{c.track}</span>
                     </span>
-                    {c.track}
-                  </span>
-                  <span className="font-mono text-steel text-sm hidden sm:inline">{c.date}</span>
-                  <span className="font-mono text-[10px] md:text-xs tracking-widest text-race-red text-right">
-                    {c.series.toUpperCase()}
-                  </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 pl-9 sm:pl-0 sm:contents">
+                    <span className="font-mono text-steel text-xs sm:text-sm">{c.date}</span>
+                    <span className="font-mono text-[10px] md:text-xs tracking-widest text-race-red sm:text-right">
+                      {c.series.toUpperCase()}
+                    </span>
+                  </div>
                 </div>
               </Reveal>
             ))}

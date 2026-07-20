@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Interlagos Map — apresentação
+   Geometria: src/track/interlagos.ts · Interação: InterlagosMap.tsx
+   Fundo transparente. Nenhum texto/HUD/carro embutido no asset.
+   ========================================================================== */
+
+.imap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: #f2f0e9;
+}
+
+.imap__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* --- camadas do traçado ------------------------------------------------- */
+
+.imap__shadow {
+  stroke: #000;
+  stroke-width: 12;
+  opacity: 0.5;
+  stroke-linejoin: round;
+}
+
+/* borda técnica discreta — non-scaling-stroke ajuda aqui (fio fino constante) */
+.imap__edge {
+  stroke: #454c56;
+  stroke-width: 9.4;
+  stroke-linejoin: round;
+}
+
+/* asfalto: escala junto com o mapa para continuar lendo como pista */
+.imap__asphalt {
+  stroke: #23272e;
+  stroke-width: 7.6;
+  stroke-linejoin: round;
+}
+
+.imap__center {
+  stroke: #f2f0e9;
+  stroke-width: 0.45;
+  opacity: 0.22;
+  stroke-dasharray: 3 7;
+  vector-effect: non-scaling-stroke;
+}
+
+/* --- setores ------------------------------------------------------------ */
+
+.imap__sector {
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  transition: stroke-width 180ms ease, opacity 180ms ease;
+  cursor: pointer;
+}
+
+.imap__sector--hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 11;
+  cursor: pointer;
+}
+
+.imap.is-focusing .imap__sector {
+  opacity: 0.3;
+}
+
+.imap .imap__sector.is-active {
+  opacity: 1;
+  stroke-width: 3.2;
+}
+
+/* --- pontos de interesse ------------------------------------------------ */
+
+.imap__poi {
+  cursor: pointer;
+  outline: none;
+}
+
+.imap__poi-dot {
+  fill: #0b0d10;
+  stroke: #f2f0e9;
+  stroke-width: 1.4;
+  transition: r 160ms ease, stroke 160ms ease;
+}
+
+.imap__poi:hover .imap__poi-dot,
+.imap__poi.is-active .imap__poi-dot {
+  stroke: #e10600;
+}
+
+.imap__poi-ring {
+  fill: none;
+  stroke: #e10600;
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.imap__poi.is-active .imap__poi-ring,
+.imap__poi:hover .imap__poi-ring {
+  opacity: 0.9;
+}
+
+/* foco visível para navegação por teclado */
+.imap__poi:focus-visible .imap__poi-ring {
+  opacity: 1;
+  stroke: #0057ff;
+  stroke-width: 1.6;
+}
+
+/* --- marcador animado --------------------------------------------------- */
+
+.imap__marker-dot {
+  fill: #e10600;
+}
+.imap__marker-halo {
+  fill: none;
+  stroke: #e10600;
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+/* --- tooltip (HTML, fora do SVG) ---------------------------------------- */
+
+.imap__tip {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+  max-width: 220px;
+  padding: 10px 12px;
+  background: rgba(11, 13, 16, 0.92);
+  border: 1px solid #2a2f36;
+  backdrop-filter: blur(10px);
+  transform: translate(-50%, calc(-100% - 14px));
+  transition: opacity 140ms ease;
+}
+
+.imap__tip-name {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.imap__tip-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #0057ff;
+  margin: 3px 0 5px;
+}
+
+.imap__tip-desc {
+  font-family: "Raleway", sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #8b94a3;
+  margin: 0;
+}
+
+/* --- legenda de setores ------------------------------------------------- */
+
+.imap__legend {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  gap: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #8b94a3;
+}
+
+.imap__legend button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.imap__legend button.is-active {
+  color: #f2f0e9;
+}
+
+.imap__legend i {
+  width: 14px;
+  height: 2px;
+  display: block;
+}
+
+/* --- responsivo --------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .imap__tip {
+    max-width: 180px;
+    padding: 8px 10px;
+  }
+  .imap__legend {
+    font-size: 9px;
+    gap: 10px;
+  }
+}
+
+/* --- acessibilidade ----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .imap__sector,
+  .imap__poi-dot,
+  .imap__poi-ring,
+  .imap__tip {
+    transition: none;
+  }
+}

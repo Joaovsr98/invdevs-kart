@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { demoTelemetry, calendar } from "../data";
-import LiveTrackMap from "./LiveTrackMap";
-import { CountdownPanel, HudEta } from "./Countdown";
+import InterlagosMap from "./InterlagosMap";
+import RaceHud from "./RaceHud";
+import { CountdownPanel } from "./Countdown";
 import { wa } from "../wa";
 
 const BOOT_SESSION_KEY = "paddock22_boot_seen";
@@ -164,19 +165,32 @@ export default function Hero() {
           <div className="checker-bg absolute -bottom-10 -right-10 w-56 h-56 opacity-10 rotate-12" />
         </div>
 
-        {/* ---- LIVE INTERLAGOS MAP on the right ---- */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[50%] pointer-events-none">
-          <div className="absolute inset-0 lg:-right-4 top-20 lg:top-8 flex items-center justify-center">
-            <div className="w-[94%] h-[60%] lg:h-[84%]">
-              <LiveTrackMap reducedMotion={reducedMotion} booted={booted} />
+        {/* ---- INTERLAGOS MAP (traçado real — ver src/track/interlagos.ts) ---- */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ delay: 0.45, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute top-0 right-0 h-screen lg:w-[52%] pointer-events-none hidden lg:block"
+        >
+          {/* Camada de transmissão (AO VIVO, volta/líder, telemetria, setor).
+              A margem vai no próprio inset: padding do pai não afeta filho
+              absoluto, pois o bloco de contenção é o padding box. */}
+          <RaceHud className="absolute left-[clamp(20px,2.6vw,40px)] right-[clamp(20px,2.6vw,40px)] bottom-[clamp(20px,2.6vw,40px)] top-[96px]" />
+
+          {/* Traçado retrato (192×289). Altura presa à viewport (não à altura da
+              seção, que é maior) para o circuito caber inteiro na primeira dobra.
+              O SVG usa preserveAspectRatio padrão = contain, sem deformar. */}
+          <div className="absolute inset-0 flex items-center justify-center p-[clamp(24px,4vw,64px)]">
+            <div className="h-[68vh] max-h-full max-w-full aspect-[192/289] pointer-events-auto">
+              <InterlagosMap animate={!reducedMotion} lapSeconds={30} />
             </div>
           </div>
-          {/* left-edge fade so the map doesn't collide with the type */}
-          <div className="absolute inset-0 bg-gradient-to-r from-asphalt via-asphalt/60 lg:via-transparent to-transparent" />
-        </div>
+        </motion.div>
 
-        <div className="relative max-w-7xl mx-auto px-6 md:px-10 w-full pt-24">
-          <div className="lg:max-w-[60%]">
+        {/* pointer-events-none no contêiner: a metade direita dele fica sobre o
+            mapa e bloqueava o hover das curvas. O conteúdo reativa os eventos. */}
+        <div className="relative max-w-7xl mx-auto px-6 md:px-10 w-full pt-24 pointer-events-none">
+          <div className="lg:max-w-[56%] pointer-events-auto">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
@@ -191,18 +205,21 @@ export default function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-semibold uppercase leading-[0.92] text-[13vw] md:text-[6.2vw] text-ivory"
+              className="font-display font-semibold uppercase leading-[0.88] tracking-[-0.015em] text-ivory text-[13vw] md:text-[8vw] lg:text-[clamp(52px,7.2vw,112px)]"
             >
-              Não criamos <span className="text-steel">pilotos.</span>
-              <br />
-              Criamos <span className="metal-text">vencedores.</span>
+              {/* Linhas explícitas: garantem as 4 linhas em qualquer largura,
+                  sem depender de quebra natural (que forçava reduzir o corpo). */}
+              <span className="block">Não criamos</span>
+              <span className="block text-steel">pilotos.</span>
+              <span className="block">Criamos</span>
+              <span className="block metal-text">vencedores.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="mt-6 max-w-xl text-steel text-base md:text-lg"
+              className="mt-5 max-w-lg text-steel text-base md:text-lg"
             >
               Onde performance encontra competição. Onde cada volta aproxima você do pódio.
             </motion.p>
@@ -211,13 +228,13 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ delay: 0.55, duration: 0.6 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
+              className="mt-7 flex flex-wrap items-center gap-4"
             >
               <a
                 href={WHATSAPP_CTA}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center gap-3 bg-race-red text-ivory font-display tracking-wide px-9 md:px-11 py-5 md:py-6 text-base md:text-lg overflow-hidden transition-transform duration-200 hover:-translate-y-0.5 shadow-[0_18px_40px_-14px_rgba(225,6,0,0.7)]"
+                className="group relative inline-flex items-center gap-2.5 bg-race-red text-ivory font-display tracking-wide px-7 md:px-8 py-3.5 md:py-4 text-sm md:text-base overflow-hidden transition-transform duration-200 hover:-translate-y-0.5 shadow-[0_14px_32px_-14px_rgba(225,6,0,0.65)]"
               >
                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                 <span className="relative">🏁 QUERO COMPETIR</span>
@@ -239,45 +256,6 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-
-        {/* ---- TELEMETRY HUD — dados em src/data.ts (demoTelemetry) ---- */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={booted ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-          transition={{ delay: 0.95, duration: 0.6 }}
-          className="hidden lg:block absolute bottom-8 right-8 glass-panel px-5 py-4 font-mono text-[11px] text-steel w-[300px]"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <span className="tracking-[0.2em] text-ivory">TELEMETRIA · CAR&nbsp;22</span>
-            <span className="flex items-center gap-1.5 text-[#3DDC97]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC97] led-pulse" />
-              LIVE
-            </span>
-          </div>
-
-          {/* RPM shift-light bar */}
-          <div className="mb-1 flex justify-between">
-            <span>RPM</span>
-            <span className="text-ivory">8&nbsp;240</span>
-          </div>
-          <div className="h-2 bg-asphalt border border-steel-line mb-3 overflow-hidden">
-            <div className="h-full rpm-run bg-gradient-to-r from-[#3DDC97] via-electric-blue to-race-red" />
-          </div>
-
-          {/* sector times */}
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 mb-3">
-            <div className="flex justify-between"><span>SETOR 1</span><span className="text-electric-blue">23.114</span></div>
-            <div className="flex justify-between"><span>SETOR 2</span><span className="text-[#3DDC97]">31.008</span></div>
-            <div className="flex justify-between"><span>GRIP</span><span className="text-ivory">98%</span></div>
-            <div className="flex justify-between"><span>TEMP</span><span className="text-ivory">{demoTelemetry.temperature}</span></div>
-          </div>
-
-          <div className="h-px bg-steel-line my-2" />
-          <div className="flex justify-between">
-            <span>PRÓXIMA LARGADA</span>
-            <HudEta target={target} />
-          </div>
-        </motion.div>
 
         <div className="absolute bottom-6 left-6 md:left-10 text-steel text-xs font-mono tracking-widest flex items-center gap-2">
           <motion.span
