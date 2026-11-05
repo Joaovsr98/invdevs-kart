@@ -85,25 +85,30 @@ export default function DiscordFooter() {
             <span>PROJETO FICTÍCIO · CONTEÚDO DE DEMONSTRAÇÃO</span>
           </div>
 
-          <a
-            href="https://www.instagram.com/inv.devs"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Desenvolvido por INV Devs (Instagram @inv.devs)"
-            className="group mt-6 inline-flex items-center gap-2.5 text-xs text-steel font-mono tracking-wide hover:text-ivory transition-colors"
-          >
-            <img
-              src="/inv-devs.webp"
-              alt=""
-              width={30}
-              height={30}
-              loading="lazy"
-              className="h-[30px] w-[30px] rounded-full transition-transform group-hover:scale-110"
-            />
-            <span>
-              DESENVOLVIDO POR <strong className="font-bold text-ivory">INV DEVS</strong>
-            </span>
-          </a>
+          {/* Crédito de quem fez o site. Glow com as cores da INV Devs (identidade de terceiro, §4). */}
+          <div className="mt-10 flex justify-center">
+            <a
+              href="https://www.instagram.com/inv.devs"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Desenvolvido por INV Devs (abre o Instagram @inv.devs)"
+              className="group inline-flex items-center gap-4 border border-steel-line bg-carbon px-6 py-4 transition-colors hover:border-steel"
+            >
+              <img
+                src="/inv-devs.webp"
+                alt=""
+                width={56}
+                height={56}
+                loading="lazy"
+                className="h-14 w-14 rounded-full shadow-[0_0_24px_rgba(56,189,248,.35)] transition group-hover:scale-110 group-hover:shadow-[0_0_32px_rgba(168,85,247,.55)] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              />
+              <span className="text-left leading-tight">
+                <span className="block font-mono text-[11px] tracking-[0.2em] text-steel">DESENVOLVIDO POR</span>
+                <span className="block font-display text-xl font-semibold uppercase tracking-wide text-ivory">INV Devs</span>
+                <span className="block font-mono text-xs text-steel group-hover:text-ivory transition-colors">@inv.devs no Instagram →</span>
+              </span>
+            </a>
+          </div>
         </div>
       </footer>
     </>
