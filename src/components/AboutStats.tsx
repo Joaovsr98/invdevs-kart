@@ -30,7 +30,7 @@ export default function AboutStats() {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
           <Reveal>
-            <p className="font-mono text-xs tracking-[0.3em] text-race-red mb-4">O QUE É A PADDOCK 22</p>
+            <p className="font-mono text-xs tracking-[0.3em] text-race-red mb-4">O QUE É A INV RACING</p>
             <h2 className="font-display font-semibold uppercase text-3xl md:text-5xl leading-tight text-ivory">
               Não somos uma comunidade.
               <br />

@@ -6,11 +6,11 @@ import RaceHud from "./RaceHud";
 import { CountdownPanel } from "./Countdown";
 import { wa } from "../wa";
 
-const BOOT_SESSION_KEY = "paddock22_boot_seen";
+const BOOT_SESSION_KEY = "invracing_boot_seen";
 
 // CTA principal → WhatsApp com mensagem pronta.
 const WHATSAPP_CTA = wa(
-  "Olá! Vim pelo site da Paddock 22 e quero competir na Temporada 2026. Como faço para garantir minha vaga?"
+  "Olá! Vi o site demonstrativo INV Racing e quero saber mais sobre a INV Devs."
 );
 
 function usePrefersReducedMotion() {
@@ -29,7 +29,7 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-// Sequência de largada Paddock 22 — não reproduz a sequência oficial de
+// Sequência de largada INV Racing — não reproduz a sequência oficial de
 // nenhuma categoria real; é uma identidade própria da marca, curta (~2.3s)
 // e pulável a qualquer momento.
 function BootSequence({ onDone }: { onDone: () => void }) {

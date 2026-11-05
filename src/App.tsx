@@ -1,7 +1,6 @@
 import Nav from "./components/Nav";
 import AmbientMotion from "./components/AmbientMotion";
 import Hero from "./components/Hero";
-import TaglineBand from "./components/TaglineBand";
 import AboutStats from "./components/AboutStats";
 import FeaturedChampionship from "./components/FeaturedChampionship";
 import HowItWorksCalendar from "./components/HowItWorksCalendar";
@@ -16,7 +15,6 @@ export default function App() {
       <div className="relative z-10">
       <Nav />
       <Hero />
-      <TaglineBand />
       <AboutStats />
       <FeaturedChampionship />
       <HowItWorksCalendar />

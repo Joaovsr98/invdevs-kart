@@ -49,7 +49,7 @@ export default function RankingHallOfFame() {
           <Reveal>
             <p className="font-mono text-xs tracking-[0.3em] text-race-red mb-4">HALL OF CHAMPIONS</p>
             <h2 className="font-display font-semibold uppercase text-2xl md:text-4xl text-ivory mb-14 max-w-xl">
-              Grandes campeões da Paddock 22.
+              Grandes campeões da INV Racing.
             </h2>
           </Reveal>
 

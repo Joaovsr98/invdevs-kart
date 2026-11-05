@@ -24,10 +24,10 @@ type Props = {
   className?: string;
 };
 
-/** Grid: 3 equipes × 2 carros. O índice 0 é o líder (CAR 22). */
+/** Grid: 3 equipes × 2 carros. O índice 0 é o líder (CAR 07). */
 const GRID = [
-  { n: 22, color: "#E10600" },
-  { n: 7, color: "#0057FF" },
+  { n: 7, color: "#E10600" },
+  { n: 31, color: "#0057FF" },
   { n: 13, color: "#FF8A00" },
   { n: 9, color: "#E10600" },
   { n: 11, color: "#0057FF" },

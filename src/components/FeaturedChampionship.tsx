@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 import { series } from "../data";
 import { wa } from "../wa";
 
-const CHAMP_CTA = wa("Olá! Quero garantir minha vaga no Paddock Championship 2026 (GT3). Como faço a inscrição?");
+const CHAMP_CTA = wa("Olá! Vi o site demonstrativo INV Racing e quero saber mais sobre a INV Devs.");
 
 export default function FeaturedChampionship() {
   return (
@@ -17,7 +17,7 @@ export default function FeaturedChampionship() {
           <div className="relative grid md:grid-cols-5 gap-0">
             <div className="md:col-span-3 p-8 md:p-14">
               <span className="inline-block font-mono text-xs tracking-widest text-race-red border border-race-red/40 px-3 py-1 mb-6">
-                PADDOCK CHAMPIONSHIP · TEMPORADA 2026
+                INV RACING CHAMPIONSHIP · TEMPORADA 2026
               </span>
               <h3 className="font-display font-semibold uppercase text-3xl md:text-5xl text-ivory leading-none">
                 Sete rodadas.
@@ -25,7 +25,7 @@ export default function FeaturedChampionship() {
                 Um campeão.
               </h3>
               <p className="text-steel mt-6 max-w-md">
-                A temporada principal da Paddock 22. Sete circuitos icônicos, GT3 de última geração e
+                A temporada principal da INV Racing. Sete circuitos icônicos, GT3 de última geração e
                 transmissão completa com narração e telemetria ao vivo.
               </p>
 
@@ -81,7 +81,7 @@ export default function FeaturedChampionship() {
         {/* series ecosystem */}
         <div className="mt-20 md:mt-28">
           <Reveal>
-            <p className="font-mono text-xs tracking-[0.3em] text-race-red mb-4">O ECOSSISTEMA PADDOCK 22</p>
+            <p className="font-mono text-xs tracking-[0.3em] text-race-red mb-4">O ECOSSISTEMA INV RACING</p>
             <h3 className="font-display font-semibold uppercase text-2xl md:text-4xl text-ivory mb-12 max-w-2xl">
               Cada competição tem sua própria identidade. Todas correm sob a mesma bandeira.
             </h3>

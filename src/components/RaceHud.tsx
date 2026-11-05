@@ -75,7 +75,7 @@ export default function RaceHud({ className = "" }: { className?: string }) {
         </div>
         <div className="flex justify-end gap-3">
           <span className="text-steel">LÍDER</span>
-          <span className="text-race-red w-[54px]">CAR 22</span>
+          <span className="text-race-red w-[54px]">CAR 07</span>
         </div>
         <div className="flex justify-end gap-3">
           <span className="text-steel">GAP</span>
@@ -90,7 +90,7 @@ export default function RaceHud({ className = "" }: { className?: string }) {
       {/* telemetria */}
       <div className="absolute bottom-0 right-0 glass-panel px-4 py-3 w-[240px]">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-[10px] tracking-[0.18em] text-ivory">TELEMETRIA · CAR 22</span>
+          <span className="text-[10px] tracking-[0.18em] text-ivory">TELEMETRIA · CAR 07</span>
           <span className="flex items-center gap-1.5 text-[9px] text-[#14D19A]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#14D19A] led-pulse" />
             LIVE

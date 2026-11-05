@@ -1,8 +1,8 @@
 import Reveal from "./Reveal";
-import Logo from "./Logo";
+import InvDevsLogo from "./InvDevsLogo";
 import { wa } from "../wa";
 
-const COMUNIDADE_CTA = wa("Olá! Quero entrar na comunidade da Paddock 22 e participar dos campeonatos. Como faço?");
+const COMUNIDADE_CTA = wa("Olá! Vi o site demonstrativo INV Racing e quero saber mais sobre a INV Devs.");
 
 export default function DiscordFooter() {
   return (
@@ -17,7 +17,7 @@ export default function DiscordFooter() {
           <Reveal>
             <p className="font-mono text-xs tracking-[0.3em] text-electric-blue mb-4">COMUNIDADE OFICIAL</p>
             <h2 className="font-display font-semibold uppercase text-3xl md:text-5xl text-ivory leading-tight">
-              Somos mais de <span className="text-electric-blue">200 pilotos</span> na comunidade.
+              Uma comunidade que <span className="text-electric-blue">corre junto</span>.
             </h2>
             <p className="text-steel mt-5 max-w-lg mx-auto">
               Avisos de treino, resultado de corrida, discussão de setup e a sala onde os campeonatos realmente
@@ -39,9 +39,9 @@ export default function DiscordFooter() {
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 md:gap-6">
             <div>
-              <Logo className="text-lg" />
+              <InvDevsLogo className="text-lg" />
               <p className="text-steel text-sm mt-4 max-w-xs">
-                Não criamos pilotos. Criamos vencedores. Campeonatos oficiais de sim racing.
+                Não criamos pilotos. Criamos vencedores. INV Racing é uma marca fictícia: este site é um projeto demonstrativo da INV Devs.
               </p>
             </div>
 
@@ -49,16 +49,15 @@ export default function DiscordFooter() {
               <h5 className="font-mono text-xs tracking-widest text-steel mb-4">REDES</h5>
               <ul className="space-y-2 text-sm text-steel">
                 <li>
-                  <a href="https://instagram.com/paddock.22" target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">
-                    Instagram · @paddock.22
+                  <a href="https://www.instagram.com/inv.devs" target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">
+                    Instagram · @inv.devs
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.youtube.com/@paddock22tv" target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">
-                    YouTube · @paddock22tv
+                  <a href="https://www.tiktok.com/@inv.devs" target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">
+                    TikTok · @inv.devs
                   </a>
                 </li>
-                <li><a href="#comunidade" className="hover:text-ivory transition-colors">Discord</a></li>
               </ul>
             </div>
 
@@ -67,26 +66,23 @@ export default function DiscordFooter() {
               <ul className="space-y-2 text-sm text-steel">
                 <li><a href="#calendario" className="hover:text-ivory transition-colors">Calendário</a></li>
                 <li><a href="#ranking" className="hover:text-ivory transition-colors">Ranking</a></li>
-                <li><a href="#" className="hover:text-ivory transition-colors">Regulamento</a></li>
+                <li><a href="#comunidade" className="hover:text-ivory transition-colors">Comunidade</a></li>
               </ul>
             </div>
 
             <div>
               <h5 className="font-mono text-xs tracking-widest text-steel mb-4">CONTATO</h5>
               <ul className="space-y-2 text-sm text-steel">
-                <li><a href="mailto:paddock22.oficial@gmail.com" className="hover:text-ivory transition-colors">paddock22.oficial@gmail.com</a></li>
-                <li><a href="https://instagram.com/paddock.22" target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">@paddock.22</a></li>
+                <li><a href={COMUNIDADE_CTA} target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">WhatsApp · (11) 92527-2694</a></li>
+                <li><a href="https://www.instagram.com/inv.devs" target="_blank" rel="noopener noreferrer" className="hover:text-ivory transition-colors">@inv.devs</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-16 pt-6 border-t border-steel-line flex flex-col md:flex-row justify-between gap-2 text-xs text-steel font-mono">
-            <span>© 2026 PADDOCK 22. TODOS OS DIREITOS RESERVADOS.</span>
-            <span>PROJETO FICTÍCIO · CONTEÚDO DE DEMONSTRAÇÃO</span>
-          </div>
-
-          {/* Crédito de quem fez o site. Glow com as cores da INV Devs (identidade de terceiro, §4). */}
-          <div className="mt-10 flex justify-center">
+          {/* Última linha: copyright · crédito INV Devs · aviso de demonstração.
+              Glow com as cores da INV Devs (identidade de terceiro, §4). */}
+          <div className="mt-16 pt-6 border-t border-steel-line grid gap-6 items-center justify-items-center text-center md:grid-cols-[1fr_auto_1fr] md:justify-items-stretch md:text-left text-xs text-steel font-mono">
+            <span>© 2026 INV RACING · MARCA FICTÍCIA.</span>
             <a
               href="https://www.instagram.com/inv.devs"
               target="_blank"
@@ -108,6 +104,7 @@ export default function DiscordFooter() {
                 <span className="block font-mono text-xs text-steel group-hover:text-ivory transition-colors">@inv.devs no Instagram →</span>
               </span>
             </a>
+            <span className="md:text-right">PROJETO FICTÍCIO · CONTEÚDO DE DEMONSTRAÇÃO</span>
           </div>
         </div>
       </footer>

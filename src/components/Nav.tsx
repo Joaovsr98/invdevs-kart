@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import InvDevsLogo from "./InvDevsLogo";
 import { wa } from "../wa";
 
-const VAGA_CTA = wa("Olá! Quero garantir minha vaga na Paddock 22. Pode me passar os próximos passos?");
+const VAGA_CTA = wa("Olá! Vi o site demonstrativo INV Racing e quero saber mais sobre a INV Devs.");
 
 const links = [
   { href: "#campeonato", label: "Campeonato" },

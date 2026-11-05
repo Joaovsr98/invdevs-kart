@@ -34,9 +34,16 @@ body {
   font-family: var(--font-mono);
 }
 
+/* Seleção discreta: o bloco vermelho sólido cobria o texto vermelho do Hero
+   e deixava a seleção pesada. */
 ::selection {
-  background-color: var(--color-race-red);
+  background-color: color-mix(in srgb, var(--color-ivory) 16%, transparent);
   color: var(--color-ivory);
+}
+/* Texto com gradiente (background-clip: text) mantém o próprio gradiente. */
+.metal-text::selection {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 /* diagonal livery-panel divider */

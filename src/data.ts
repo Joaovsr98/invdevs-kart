@@ -1,5 +1,5 @@
 // ============================================================
-// DEMO CONTENT — Paddock 22
+// DEMO CONTENT — INV Racing (marca fictícia, projeto demonstrativo INV Devs)
 // Todo o conteúdo abaixo (números, calendário, ranking, pilotos,
 // depoimentos, parceiros, telemetria) é FICTÍCIO, criado apenas
 // para fins de demonstração visual. Substituir por dados reais
@@ -18,7 +18,7 @@ export const demoTelemetry = {
 export const series = [
   {
     icon: "🏆",
-    name: "Paddock Championship",
+    name: "INV Racing Championship",
     tag: "Principal",
     desc: "O campeonato-título do ano. Temporada longa, pontos corridos, coroa no fim da temporada.",
     color: "var(--color-race-red)",
@@ -41,7 +41,7 @@ export const series = [
     icon: "🎯",
     name: "Rookie Academy",
     tag: "Iniciante",
-    desc: "Sua entrada na Paddock 22. Regras de proteção, telemetria explicada, mentoria de pilotos veteranos.",
+    desc: "Sua entrada na INV Racing. Regras de proteção, telemetria explicada, mentoria de pilotos veteranos.",
     color: "#3DDC97",
   },
   {
@@ -79,12 +79,12 @@ export const steps = [
 
 // Calendário 100% nacional — autódromos brasileiros.
 export const calendar = [
-  { round: "01", track: "Interlagos", country: "SP", date: "08 Mar", series: "Paddock Championship" },
-  { round: "02", track: "Velocitta", country: "SP", date: "22 Mar", series: "Paddock Championship" },
+  { round: "01", track: "Interlagos", country: "SP", date: "08 Mar", series: "INV Racing Championship" },
+  { round: "02", track: "Velocitta", country: "SP", date: "22 Mar", series: "INV Racing Championship" },
   { round: "03", track: "Goiânia", country: "GO", date: "05 Abr", series: "Night Series" },
-  { round: "04", track: "Curitiba", country: "PR", date: "19 Abr", series: "Paddock Championship" },
+  { round: "04", track: "Curitiba", country: "PR", date: "19 Abr", series: "INV Racing Championship" },
   { round: "05", track: "Cascavel", country: "PR", date: "03 Mai", series: "Endurance Series" },
-  { round: "06", track: "Tarumã", country: "RS", date: "17 Mai", series: "Paddock Championship" },
+  { round: "06", track: "Tarumã", country: "RS", date: "17 Mai", series: "INV Racing Championship" },
   { round: "07", track: "Santa Cruz do Sul", country: "RS", date: "31 Mai", series: "Endurance Series" },
 ];
 
@@ -117,7 +117,7 @@ export const testimonials = [
     role: "Masters League",
   },
   {
-    quote: "Meu primeiro campeonato foi pelo Paddock 22. Hoje é o único lugar que eu levo tão a sério quanto um trabalho.",
+    quote: "Meu primeiro campeonato foi pela INV Racing. Hoje é o único lugar que eu levo tão a sério quanto um trabalho.",
     name: "Diego Marchetti",
     role: "Piloto, 3ª temporada",
   },
@@ -133,5 +133,5 @@ export const galleryImages = [
   { query: "motorsport podium champagne celebration", alt: "Pódio de campeonato" },
   { query: "racing pit stop crew action", alt: "Troca de pneus no pit stop" },
   { query: "race cars side by side overtake corner", alt: "Ultrapassagem em curva" },
-  { query: "esports racing team paddock garage", alt: "Box da equipe no paddock" },
+  { query: "esports racing team pit garage", alt: "Equipe na garagem dos boxes" },
 ];
