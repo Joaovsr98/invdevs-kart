@@ -13,6 +13,30 @@ const WHATSAPP_CTA = wa(
   "Olá! Vi o site demonstrativo INV Racing e quero saber mais sobre a INV Devs."
 );
 
+// Mapa + HUD só existem a partir de lg (1024px). Escondidos por CSS no celular,
+// eles continuavam montados e animando (rAF + tickers), pesando ~6s de JS no
+// Lighthouse mobile. Mesmo breakpoint do `hidden lg:block` abaixo.
+function useIsDesktop() {
+  const [desktop, setDesktop] = useState(() => {
+    try {
+      return window.matchMedia("(min-width: 1024px)").matches;
+    } catch {
+      return true;
+    }
+  });
+  useEffect(() => {
+    try {
+      const mq = window.matchMedia("(min-width: 1024px)");
+      const handler = (e: MediaQueryListEvent) => setDesktop(e.matches);
+      mq.addEventListener("change", handler);
+      return () => mq.removeEventListener("change", handler);
+    } catch {
+      /* sem matchMedia: mantém o mapa */
+    }
+  }, []);
+  return desktop;
+}
+
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
   useEffect(() => {
@@ -104,6 +128,7 @@ function BootSequence({ onDone }: { onDone: () => void }) {
 
 export default function Hero() {
   const reducedMotion = usePrefersReducedMotion();
+  const isDesktop = useIsDesktop();
 
   // Fonte única de verdade: showBoot. `booted` é derivado — sem dois estados
   // que possam ficar dessincronizados. Decidido de forma síncrona na
@@ -166,6 +191,7 @@ export default function Hero() {
         </div>
 
         {/* ---- INTERLAGOS MAP (traçado real — ver src/track/interlagos.ts) ---- */}
+        {isDesktop && (
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
@@ -186,6 +212,7 @@ export default function Hero() {
             </div>
           </div>
         </motion.div>
+        )}
 
         {/* pointer-events-none no contêiner: a metade direita dele fica sobre o
             mapa e bloqueava o hover das curvas. O conteúdo reativa os eventos. */}
