@@ -84,6 +84,26 @@ export default function DiscordFooter() {
             <span>© 2026 PADDOCK 22. TODOS OS DIREITOS RESERVADOS.</span>
             <span>PROJETO FICTÍCIO · CONTEÚDO DE DEMONSTRAÇÃO</span>
           </div>
+
+          <a
+            href="https://www.instagram.com/inv.devs"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Desenvolvido por INV Devs (Instagram @inv.devs)"
+            className="group mt-6 inline-flex items-center gap-2.5 text-xs text-steel font-mono tracking-wide hover:text-ivory transition-colors"
+          >
+            <img
+              src="/inv-devs.webp"
+              alt=""
+              width={30}
+              height={30}
+              loading="lazy"
+              className="h-[30px] w-[30px] rounded-full transition-transform group-hover:scale-110"
+            />
+            <span>
+              DESENVOLVIDO POR <strong className="font-bold text-ivory">INV DEVS</strong>
+            </span>
+          </a>
         </div>
       </footer>
     </>
