@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Logo from "./Logo";
+import InvDevsLogo from "./InvDevsLogo";
 import { wa } from "../wa";
 
 const VAGA_CTA = wa("Olá! Quero garantir minha vaga na Paddock 22. Pode me passar os próximos passos?");
@@ -53,8 +53,8 @@ export default function Nav() {
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 h-16">
-        <a href="#" className="group flex items-center transition-transform duration-300 hover:scale-[1.02]">
-          <Logo className="text-lg" />
+        <a href="#" aria-label="INV Devs, início da página" className="group flex items-center transition-transform duration-300 hover:scale-[1.02]">
+          <InvDevsLogo className="text-lg" />
         </a>
 
         <ul className="hidden md:flex items-center gap-1 font-body text-sm">
