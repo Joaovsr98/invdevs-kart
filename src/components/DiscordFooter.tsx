@@ -80,15 +80,15 @@ export default function DiscordFooter() {
           </div>
 
           {/* Última linha: copyright · crédito INV Devs · aviso de demonstração.
-              Glow com as cores da INV Devs (identidade de terceiro, §4). */}
+              Cartão no padrão INV Devs (modelo Bueno's House): cores de terceiro, permitidas pelo §4. */}
           <div className="mt-16 pt-6 border-t border-steel-line grid gap-6 items-center justify-items-center text-center md:grid-cols-[1fr_auto_1fr] md:justify-items-stretch md:text-left text-xs text-steel font-mono">
             <span>© 2026 INV RACING · MARCA FICTÍCIA.</span>
             <a
               href="https://www.instagram.com/inv.devs"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Desenvolvido por INV Devs (abre o Instagram @inv.devs)"
-              className="group inline-flex items-center gap-4 border border-steel-line bg-carbon px-6 py-4 transition-colors hover:border-steel"
+              aria-label="Site feito por INV Devs (abre o Instagram @inv.devs)"
+              className="group inline-flex items-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#0b0f17] px-5 py-3 shadow-[0_0_28px_rgba(56,189,248,.12)] transition hover:border-cyan-400/50 hover:shadow-[0_0_34px_rgba(168,85,247,.25)]"
             >
               <img
                 src="/inv-devs.webp"
@@ -99,9 +99,9 @@ export default function DiscordFooter() {
                 className="h-14 w-14 rounded-full shadow-[0_0_24px_rgba(56,189,248,.35)] transition group-hover:scale-110 group-hover:shadow-[0_0_32px_rgba(168,85,247,.55)] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               />
               <span className="text-left leading-tight">
-                <span className="block font-mono text-[11px] tracking-[0.2em] text-steel">DESENVOLVIDO POR</span>
-                <span className="block font-display text-xl font-semibold uppercase tracking-wide text-ivory">INV Devs</span>
-                <span className="block font-mono text-xs text-steel group-hover:text-ivory transition-colors">@inv.devs no Instagram →</span>
+                <span className="block font-body text-[11px] uppercase tracking-[0.2em] text-neutral-400">Site feito por</span>
+                <span className="block font-body text-lg font-bold normal-case text-neutral-100 group-hover:text-white">INV Devs</span>
+                <span className="block font-body text-xs text-cyan-300/90 group-hover:text-cyan-200 transition-colors">@inv.devs no Instagram →</span>
               </span>
             </a>
             <span className="md:text-right">PROJETO FICTÍCIO · CONTEÚDO DE DEMONSTRAÇÃO</span>
